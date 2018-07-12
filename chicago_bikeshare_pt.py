@@ -20,6 +20,11 @@ print("Linha 0: ")
 print(data_list[0])
 # É o cabeçalho dos dados, para que possamos identificar as colunas.
 
+COLUNA_GENERO = 6
+COLUNA_TIPO_USUARIO = 5
+COLUNA_DURACAO_VIAGEM = 2
+COLUNA_ESTACAO_INICIO = 3
+
 # Imprimindo a segunda linha de data_list, ela deveria conter alguns dados
 print("Linha 1: ")
 print(data_list[1])
@@ -31,21 +36,18 @@ print("\n\nTAREFA 1: Imprimindo as primeiras 20 amostras")
 for i in range(20):
     print(data_list[i])
 
-
 # Vamos mudar o data_list para remover o cabeçalho dele.
 data_list = data_list[1:]
 
 # Nós podemos acessar as features pelo índice
 # Por exemplo: sample[6] para imprimir gênero, ou sample[-2]
 
-GENERO = 6
-
 input("Aperte Enter para continuar...")
 # TAREFA 2
 # TODO: Imprima o `gênero` das primeiras 20 linhas
 print("\nTAREFA 2: Imprimindo o gênero das primeiras 20 amostras")
 for line in data_list[:20]:
-    print(line[GENERO])
+    print(line[COLUNA_GENERO])
 
 # Ótimo! Nós podemos pegar as linhas(samples) iterando com um for, e as colunas(features) por índices.
 # Mas ainda é difícil pegar uma coluna em uma lista. Exemplo: Lista com todos os gêneros
@@ -56,6 +58,11 @@ input("Aperte Enter para continuar...")
 def column_to_list(data: list, index: int):
     """
     Retorna a coluna especificada por index (em data) em forma de lista
+    Args:
+        data: uma lista de outra lista de n valores
+        index: um valor entre 0 e n-1
+    Returns:
+        uma lista
     """
     column_list = []
     # Dica: Você pode usar um for para iterar sobre as amostras, pegar a feature pelo seu índice, e dar append para uma lista
@@ -63,15 +70,13 @@ def column_to_list(data: list, index: int):
         column_list.append(line[index])
     return column_list
 
-
 # Vamos checar com os gêneros se isso está funcionando (apenas para os primeiros 20)
 print("\nTAREFA 3: Imprimindo a lista de gêneros das primeiras 20 amostras")
-print(column_to_list(data_list, -2)[:20])
-
+print(column_to_list(data_list, COLUNA_GENERO)[:20])
 
 # ------------ NÃO MUDE NENHUM CÓDIGO AQUI ------------
-assert type(column_to_list(data_list, -2)) is list, "TAREFA 3: Tipo incorreto retornado. Deveria ser uma lista."
-assert len(column_to_list(data_list, -2)) == 1551505, "TAREFA 3: Tamanho incorreto retornado."
+assert type(column_to_list(data_list, -2)) is list, "TAREFA 3: Tipo incorreto Returnsdo. Deveria ser uma lista."
+assert len(column_to_list(data_list, -2)) == 1551505, "TAREFA 3: Tamanho incorreto Returnsdo."
 assert column_to_list(data_list, -2)[0] == "" and column_to_list(data_list, -2)[1] == "Male", "TAREFA 3: A lista não coincide."
 # -----------------------------------------------------
 
@@ -79,7 +84,7 @@ input("Aperte Enter para continuar...")
 # Agora sabemos como acessar as features, vamos contar quantos Male (Masculinos) e Female (Femininos) o dataset tem
 # TAREFA 4
 # TODO: Conte cada gênero. Você não deveria usar uma função parTODO isso.
-coluna_genero = column_to_list(data_list, 6)
+coluna_genero = column_to_list(data_list, COLUNA_GENERO)
 male = len( [m for m in coluna_genero if m == 'Male' ] )
 female = len( [m for m in coluna_genero if m == 'Female' ] )
 
@@ -95,14 +100,17 @@ input("Aperte Enter para continuar...")
 # Por que nós não criamos uma função parTODO isso?
 # TAREFA 5
 # TODO: Crie uma função para contar os gêneros. Retorne uma lista.
-# Isso deveria retornar uma lista com [count_male, count_female] (exemplo: [10, 15] significa 10 Masculinos, 15 Femininos)
+# Isso deveria Returnsr uma lista com [count_male, count_female] (exemplo: [10, 15] significa 10 Masculinos, 15 Femininos)
 def count_gender(data_list: list):
     """
     Retorna uma lista (de dois valores) com a quantidade de registros de usuários masculinos e femininos
-    [quantidade de usuários masculinos, quantidade de usuários femininos]
+    Args:
+        data_list: uma lista de valores de gêneros (Male, Female ou valores nulos)
+    Returns:
+        uma lista de dois valores [Quantidade de usuários masculinos, Quantidade de usuários Femininos]
     """
-    male = len( [m for m in column_to_list(data_list, 6) if m == 'Male' ] )
-    female = len( [m for m in column_to_list(data_list, 6) if m == 'Female' ] )
+    male = len( [m for m in column_to_list(data_list, COLUNA_GENERO) if m == 'Male' ] )
+    female = len( [m for m in column_to_list(data_list, COLUNA_GENERO) if m == 'Female' ] )
     return [male, female]
 
 
@@ -110,8 +118,8 @@ print("\nTAREFA 5: Imprimindo o resultado de count_gender")
 print(count_gender(data_list))
 
 # ------------ NÃO MUDE NENHUM CÓDIGO AQUI ------------
-assert type(count_gender(data_list)) is list, "TAREFA 5: Tipo incorreto retornado. Deveria retornar uma lista."
-assert len(count_gender(data_list)) == 2, "TAREFA 5: Tamanho incorreto retornado."
+assert type(count_gender(data_list)) is list, "TAREFA 5: Tipo incorreto Returnsdo. Deveria Returnsr uma lista."
+assert len(count_gender(data_list)) == 2, "TAREFA 5: Tamanho incorreto Returnsdo."
 assert count_gender(data_list)[0] == 935854 and count_gender(data_list)[1] == 298784, "TAREFA 5: Resultado incorreto no retorno!"
 # -----------------------------------------------------
 
@@ -123,12 +131,20 @@ input("Aperte Enter para continuar...")
 def most_popular_gender(data_list: list):
     """
     Retorna uma descrição do gênero mais frequente na lista fornecida
+    Args:
+        data_list: uma lista de dois valores contendo uma quantidade de gêneros masculinos e femininos [masculino, feminino]
+    Returns:
+        a string 'Masculino' se existirem mais gêneros masculinos que femininos
+        a string 'Feminino' se existirem mais gêneros femininos que masculinos
+        a string 'Igual' se as quantidades forem equivalentes
     """
     GENERO_MALE = 0
     GENERO_FEMALE = 1
     contagem_genero = count_gender(data_list)
     if contagem_genero[GENERO_MALE] > contagem_genero[GENERO_FEMALE]:
         return "Masculino"
+    elif contagem_genero[GENERO_MALE] == contagem_genero[GENERO_FEMALE]:
+        return "Igual"
     return "Feminino"
 
 
@@ -136,12 +152,12 @@ print("\nTAREFA 6: Qual é o gênero mais popular na lista?")
 print("O gênero mais popular na lista é: ", most_popular_gender(data_list))
 
 # ------------ NÃO MUDE NENHUM CÓDIGO AQUI ------------
-assert type(most_popular_gender(data_list)) is str, "TAREFA 6: Tipo incorreto no retorno. Deveria retornar uma string."
+assert type(most_popular_gender(data_list)) is str, "TAREFA 6: Tipo incorreto no retorno. Deveria Returnsr uma string."
 assert most_popular_gender(data_list) == "Masculino", "TAREFA 6: Resultado de retorno incorreto!"
 # -----------------------------------------------------
 
 # Se tudo está rodando como esperado, verifique este gráfico!
-gender_list = column_to_list(data_list, -2)
+gender_list = column_to_list(data_list, COLUNA_GENERO)
 types = ["Male", "Female"]
 quantity = count_gender(data_list)
 y_pos = list(range(len(types)))
@@ -152,20 +168,24 @@ plt.xticks(y_pos, types)
 plt.title('Quantidade por Gênero')
 plt.show(block=True)
 
-
-
 input("Aperte Enter para continuar...")
 # TAREFA 7
 # TODO: Crie um gráfico similar para user_types. Tenha certeza que a legenda está correta.
 print("\nTAREFA 7: Verifique o gráfico!")
-USER_TYPE_SUBSCRIBER = 0
-USER_TYPE_CUSTOMER = 1
 def count_user_types(data_list):
-    subscriber = len( [m for m in column_to_list(data_list, 5) if m == 'Subscriber' ] )
-    customer = len( [m for m in column_to_list(data_list, 5) if m == 'Customer' ] )
+    """
+    Retorna a quantidade de ocorrências de cada tipo de usuários em data_list
+    Args:
+        data_list: uma lista de tipos de usuários contendo valores 'Subscriber' e 'Customer'
+    Returns:
+        uma lista de dois valores com as quantidades de usuários do tipo 'Subscriber' e 'Customer'
+        [Quantidade de subscriber, Quantidade de Customer]
+    """
+    subscriber = len( [m for m in column_to_list(data_list, COLUNA_TIPO_USUARIO) if m == 'Subscriber' ] )
+    customer = len( [m for m in column_to_list(data_list, COLUNA_TIPO_USUARIO) if m == 'Customer' ] )
     return [subscriber, customer]
 
-user_type_list = column_to_list(data_list, 5)
+user_type_list = column_to_list(data_list, COLUNA_TIPO_USUARIO)
 types = ["Subscriber", "Customer"]
 quantity = count_user_types(data_list)
 y_pos = list(range(len(types)))
@@ -175,8 +195,6 @@ plt.xlabel('User Types')
 plt.xticks(y_pos, types)
 plt.title('Quantidade por tipo de usuário')
 plt.show(block=True)
-
-
 
 input("Aperte Enter para continuar...")
 # TAREFA 8
@@ -198,18 +216,26 @@ input("Aperte Enter para continuar...")
 # Você não deve usar funções prontas parTODO isso, como max() e min().
 def soma_total(lista: list):
     """
-    Retorna a soma de todos os números fornecidos na lista
+    Returns a soma de todos os números fornecidos na lista
+    Args:
+        uma lista de valores numéricos
+    Returns:
+        a soma total dos valores da lista
     """
     total = 0
     for numero in lista:
-        total+=int(numero)
+        total+=numero
     return total
 
 def calcula_mediana(valores: list):
     """
-    Retorna a mediana dos valores fornecidos
+    Returns a mediana dos valores fornecidos
+    Args:
+        uma lista de valores numéricos
+    Returns:
+        a mediana dos valores fornecidos na lista
     """
-    valores = sorted(valores)
+    valores = sorted( [v for v in valores] )
     tamanho_lista = len(valores)
 
     if tamanho_lista == 0:
@@ -217,13 +243,14 @@ def calcula_mediana(valores: list):
 
     if tamanho_lista%2 == 0:
         indice = int(tamanho_lista/2)
-        return (int(valores[indice - 1]) + int(valores[indice]))/2
+        return (valores[indice - 1] + valores[indice])/2
     else:
-        return int(valores[int(tamanho_lista/2)])
+        return valores[int(tamanho_lista/2)]
 
-trip_duration_list = column_to_list(data_list, 2)
-min_trip = sorted( [int(n) for n in trip_duration_list] )[0]
-max_trip = sorted( [int(n) for n in trip_duration_list] , reverse=True)[0]
+trip_duration_list = column_to_list(data_list, COLUNA_DURACAO_VIAGEM)
+trip_duration_list = [int(v) for v in trip_duration_list]
+min_trip = sorted( [n for n in trip_duration_list] )[0]
+max_trip = sorted( [n for n in trip_duration_list] , reverse=True)[0]
 mean_trip = soma_total(trip_duration_list)/len(trip_duration_list)
 median_trip = calcula_mediana(trip_duration_list)
 
@@ -235,7 +262,7 @@ print("Min: ", min_trip, "Max: ", max_trip, "Média: ", mean_trip, "Mediana: ", 
 assert round(min_trip) == 60, "TAREFA 9: min_trip com resultado errado!"
 assert round(max_trip) == 86338, "TAREFA 9: max_trip com resultado errado!"
 assert round(mean_trip) == 940, "TAREFA 9: mean_trip com resultado errado!"
-assert round(median_trip) == 361, "TAREFA 9: median_trip com resultado errado! --670?"
+assert round(median_trip) == 670, "TAREFA 9: median_trip com resultado errado!"
 # -----------------------------------------------------
 
 
@@ -243,7 +270,7 @@ input("Aperte Enter para continuar...")
 # TAREFA 10
 # Gênero é fácil porque nós temos apenas algumas opções. E quanto a start_stations? Quantas opções ele tem?
 # TODO: Verifique quantos tipos de start_stations nós temos, usando set()
-start_stations_list = column_to_list(data_list, 3)
+start_stations_list = column_to_list(data_list, COLUNA_ESTACAO_INICIO)
 start_stations = set(start_stations_list)
 
 print("\nTAREFA 10: Imprimindo as start stations:")
@@ -261,10 +288,10 @@ input("Aperte Enter para continuar...")
 # def new_function(param1: int, param2: str) -> list:
 #    """
 #      Função de exemplo com anotações.
-#      Argumentos:
+#      Args:
 #          param1: O primeiro parâmetro.
 #          param2: O segundo parâmetro.
-#      Retorna:
+#      Returns:
 #          Uma lista de valores x.
 #
 #    """
@@ -278,7 +305,13 @@ answer = "yes"
 
 def count_items(column_list: list):
     """
-    Retorna os diferentes itens presentes em columns_list e as suas respectivas quantidades
+    Returns os diferentes itens presentes em columns_list e as suas respectivas quantidades
+    Args:
+        column_list: uma lista de valores qualquer
+    Returns:
+        duas listas
+        a primeira com os exclusivos e diferentes valores contidos em column_list
+        a segunda com as quantidades de ocorrências de cada um desses valores respectivamente
     """
     item_types = list(set(column_list))
     count_items = []
