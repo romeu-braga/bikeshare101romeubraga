@@ -75,8 +75,8 @@ print("\nTAREFA 3: Imprimindo a lista de gêneros das primeiras 20 amostras")
 print(column_to_list(data_list, COLUNA_GENERO)[:20])
 
 # ------------ NÃO MUDE NENHUM CÓDIGO AQUI ------------
-assert type(column_to_list(data_list, -2)) is list, "TAREFA 3: Tipo incorreto Returnsdo. Deveria ser uma lista."
-assert len(column_to_list(data_list, -2)) == 1551505, "TAREFA 3: Tamanho incorreto Returnsdo."
+assert type(column_to_list(data_list, -2)) is list, "TAREFA 3: Tipo incorreto retornando. Deveria ser uma lista."
+assert len(column_to_list(data_list, -2)) == 1551505, "TAREFA 3: Tamanho incorreto retornando."
 assert column_to_list(data_list, -2)[0] == "" and column_to_list(data_list, -2)[1] == "Male", "TAREFA 3: A lista não coincide."
 # -----------------------------------------------------
 
@@ -118,8 +118,8 @@ print("\nTAREFA 5: Imprimindo o resultado de count_gender")
 print(count_gender(data_list))
 
 # ------------ NÃO MUDE NENHUM CÓDIGO AQUI ------------
-assert type(count_gender(data_list)) is list, "TAREFA 5: Tipo incorreto Returnsdo. Deveria Returnsr uma lista."
-assert len(count_gender(data_list)) == 2, "TAREFA 5: Tamanho incorreto Returnsdo."
+assert type(count_gender(data_list)) is list, "TAREFA 5: Tipo incorreto retornando. Deveria retornar uma lista."
+assert len(count_gender(data_list)) == 2, "TAREFA 5: Tamanho incorreto retornando."
 assert count_gender(data_list)[0] == 935854 and count_gender(data_list)[1] == 298784, "TAREFA 5: Resultado incorreto no retorno!"
 # -----------------------------------------------------
 
@@ -152,7 +152,7 @@ print("\nTAREFA 6: Qual é o gênero mais popular na lista?")
 print("O gênero mais popular na lista é: ", most_popular_gender(data_list))
 
 # ------------ NÃO MUDE NENHUM CÓDIGO AQUI ------------
-assert type(most_popular_gender(data_list)) is str, "TAREFA 6: Tipo incorreto no retorno. Deveria Returnsr uma string."
+assert type(most_popular_gender(data_list)) is str, "TAREFA 6: Tipo incorreto no retorno. Deveria retornar uma string."
 assert most_popular_gender(data_list) == "Masculino", "TAREFA 6: Resultado de retorno incorreto!"
 # -----------------------------------------------------
 
