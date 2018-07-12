@@ -216,7 +216,7 @@ input("Aperte Enter para continuar...")
 # Você não deve usar funções prontas parTODO isso, como max() e min().
 def soma_total(lista: list):
     """
-    Returns a soma de todos os números fornecidos na lista
+    Retorna a soma de todos os números fornecidos na lista
     Args:
         uma lista de valores numéricos
     Returns:
@@ -229,7 +229,7 @@ def soma_total(lista: list):
 
 def calcula_mediana(valores: list):
     """
-    Returns a mediana dos valores fornecidos
+    Retorna a mediana dos valores fornecidos
     Args:
         uma lista de valores numéricos
     Returns:
@@ -305,7 +305,7 @@ answer = "yes"
 
 def count_items(column_list: list):
     """
-    Returns os diferentes itens presentes em columns_list e as suas respectivas quantidades
+    Retorna os diferentes itens presentes em columns_list e as suas respectivas quantidades
     Args:
         column_list: uma lista de valores qualquer
     Returns:
